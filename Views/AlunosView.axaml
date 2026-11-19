@@ -1,0 +1,122 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FrequenciaEscolar.ViewModels"
+             x:Class="FrequenciaEscolar.Views.AlunosView"
+             x:DataType="vm:AlunosViewModel">
+
+    <Grid ColumnDefinitions="*,340" Margin="20">
+
+        <!-- Lista de Alunos -->
+        <DockPanel Grid.Column="0" Margin="0,0,20,0">
+            
+            <StackPanel DockPanel.Dock="Top" Spacing="10" Margin="0,0,0,15">
+                <TextBlock Text="Alunos Cadastrados" 
+                           FontSize="20" 
+                           FontWeight="Bold"/>
+
+                <!-- Filtro por turma -->
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                    <ComboBox ItemsSource="{Binding Turmas}"
+                              SelectedItem="{Binding FiltroTurma}"
+                              PlaceholderText="Filtrar por turma..."
+                              HorizontalAlignment="Stretch">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Nome}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <Button Grid.Column="1"
+                            Content="Limpar"
+                            Command="{Binding LimparFiltroCommand}"
+                            Padding="12,8"/>
+                </Grid>
+            </StackPanel>
+
+            <ListBox ItemsSource="{Binding AlunosFiltrados}"
+                     SelectedItem="{Binding AlunoSelecionado}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="{Binding Nome}" FontWeight="SemiBold"/>
+                            <TextBlock Text="{Binding Matricula}" FontSize="12" Foreground="#64748B"/>
+                            <TextBlock Text="{Binding Turma.Nome}" FontSize="12" Foreground="#3B82F6"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+
+        <!-- Formulário -->
+        <Border Grid.Column="1" 
+                Background="White" 
+                BorderBrush="#E2E8F0" 
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="20">
+            <StackPanel Spacing="15">
+                <TextBlock Text="{Binding TituloFormulario}" 
+                           FontSize="18" 
+                           FontWeight="SemiBold"/>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Nome do Aluno" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Nome}" PlaceholderText="Ex: João Silva"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Matrícula" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Matricula}" PlaceholderText="Ex: 2026001"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Turma" FontWeight="SemiBold"/>
+                    <ComboBox ItemsSource="{Binding Turmas}"
+                              SelectedItem="{Binding TurmaSelecionada}"
+                              PlaceholderText="Selecione a turma">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Nome}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <TextBlock Text="{Binding Mensagem}"
+                           Foreground="#DC2626"
+                           TextWrapping="Wrap"
+                           FontWeight="SemiBold"/>
+
+                <Button Content="Salvar" 
+                        Command="{Binding SalvarAlunoCommand}"
+                        HorizontalAlignment="Stretch"
+                        Padding="12"
+                        Background="#3B82F6"
+                        Foreground="White"
+                        FontWeight="SemiBold"/>
+
+                <Button Content="Importar CSV..." 
+                        Command="{Binding ImportarCsvCommand}"
+                        HorizontalAlignment="Stretch"
+                        Padding="12,10"
+                        Background="#64748B"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        Margin="0,8,0,0"/>
+
+                <Button Content="Editar Selecionado" 
+                        Command="{Binding EditarAlunoCommand}"
+                        HorizontalAlignment="Stretch"
+                        Padding="12"/>
+
+                <Button Content="Excluir Selecionado" 
+                        Command="{Binding ExcluirAlunoCommand}"
+                        HorizontalAlignment="Stretch"
+                        Padding="12"
+                        Background="#EF4444"
+                        Foreground="White"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

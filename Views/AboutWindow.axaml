@@ -1,0 +1,64 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="FrequenciaEscolar.Views.AboutWindow"
+        Title="Sobre o Sistema"
+        Width="420"
+        Height="340"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#F8FAFC">
+
+    <Border Margin="20" Background="White" CornerRadius="12" 
+            BorderBrush="#E2E8F0" BorderThickness="1" Padding="25">
+        
+        <StackPanel Spacing="12" HorizontalAlignment="Center">
+
+            <TextBlock Text="Frequência Escolar"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Foreground="#1E293B"/>
+
+            <TextBlock Text="Sistema de Controle de Frequência"
+                       FontSize="13"
+                       HorizontalAlignment="Center"
+                       Foreground="#64748B"/>
+
+            <Separator Margin="0,8"/>
+
+            <StackPanel Spacing="6">
+                <TextBlock Text="Versão: 1.0.0" FontSize="13"/>
+                <TextBlock Text="Desenvolvido em Avalonia UI + .NET" FontSize="13"/>
+                <TextBlock Text="Banco de dados: SQLite + Entity Framework Core" FontSize="13"/>
+                <TextBlock Text="Ano: 2026" FontSize="13"/>
+            </StackPanel>
+
+            <Separator Margin="0,8"/>
+
+            <TextBlock Text="Desenvolvido para uso educacional"
+                       FontSize="12"
+                       HorizontalAlignment="Center"
+                       Foreground="#94A3B8"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Center"
+           FontSize="12"
+           Foreground="#3B82F6"
+           Cursor="Hand"
+           TextDecorations="Underline"
+           PointerPressed="AbrirTerminal_Click">
+    Código feito por mim com Grok IA
+</TextBlock>
+
+            <Button Content="Fechar"
+                    HorizontalAlignment="Center"
+                    Width="120"
+                    Margin="0,10,0,0"
+                    Padding="12,8"
+                    Background="#3B82F6"
+                    Foreground="White"
+                    CornerRadius="6"
+                    Click="Fechar_Click"/>
+        </StackPanel>
+    </Border>
+</Window>

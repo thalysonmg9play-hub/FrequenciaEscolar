@@ -1,0 +1,138 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FrequenciaEscolar.ViewModels"
+             x:Class="FrequenciaEscolar.Views.FrequenciaView"
+             x:DataType="vm:FrequenciaViewModel">
+
+    <DockPanel Margin="20">
+
+        <!-- Cabeçalho com filtros -->
+        <Border DockPanel.Dock="Top" 
+                Background="White" 
+                BorderBrush="#E2E8F0" 
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="15"
+                Margin="0,0,0,15">
+            <StackPanel Spacing="12">
+                <TextBlock Text="Lançamento de Frequência" 
+                           FontSize="20" 
+                           FontWeight="Bold"/>
+
+                <Grid ColumnDefinitions="*,*,Auto,Auto" ColumnSpacing="15">
+                    
+                    <!-- Seleção de Turma -->
+                    <StackPanel Grid.Column="0" Spacing="5">
+                        <TextBlock Text="Turma" FontWeight="SemiBold"/>
+                        <ComboBox ItemsSource="{Binding Turmas}"
+                                  SelectedItem="{Binding TurmaSelecionada}"
+                                  PlaceholderText="Selecione a turma"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Nome}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Seleção de Data -->
+                    <StackPanel Grid.Column="1" Spacing="5">
+                        <TextBlock Text="Data" FontWeight="SemiBold"/>
+                        <CalendarDatePicker SelectedDate="{Binding DataSelecionada}"
+                                            HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+
+                    <!-- Botões de marcação rápida -->
+                    <Button Grid.Column="2" 
+                            Content="Todos Presentes"
+                            Command="{Binding MarcarTodosPresentesCommand}"
+                            VerticalAlignment="Bottom"
+                            Padding="12,8"
+                            Background="#22C55E"
+                            Foreground="White"/>
+
+                    <Button Grid.Column="3" 
+                            Content="Todos Ausentes"
+                            Command="{Binding MarcarTodosAusentesCommand}"
+                            VerticalAlignment="Bottom"
+                            Padding="12,8"
+                            Background="#EF4444"
+                            Foreground="White"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Lista de alunos -->
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Bottom" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right"
+                        Spacing="10"
+                        Margin="0,15,0,0">
+                
+                <TextBlock Text="{Binding MensagemStatus}" 
+                           VerticalAlignment="Center"
+                           Foreground="#16A34A"
+                           FontWeight="SemiBold"
+                           Margin="0,0,20,0"/>
+
+                <Button Content="Salvar Frequência" 
+                        Command="{Binding SalvarFrequenciaCommand}"
+                        Padding="20,12"
+                        Background="#3B82F6"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        FontSize="15"/>
+            </StackPanel>
+
+            <Border Background="White" 
+                    BorderBrush="#E2E8F0" 
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="10">
+                
+                <ListBox ItemsSource="{Binding AlunosFrequencia}"
+                         Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="10,8" 
+                                    Margin="0,2"
+                                    Background="#F8FAFC"
+                                    CornerRadius="6">
+                                <Grid ColumnDefinitions="*,Auto,200">
+                                    
+                                    <!-- Nome do aluno -->
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Aluno.Nome}" 
+                                                   FontWeight="SemiBold"
+                                                   FontSize="14"/>
+                                        <TextBlock Text="{Binding Aluno.Matricula}" 
+                                                   FontSize="12" 
+                                                   Foreground="#64748B"/>
+                                    </StackPanel>
+
+                                    <!-- Checkbox Presente -->
+                                    <StackPanel Grid.Column="1" 
+                                                Orientation="Horizontal" 
+                                                VerticalAlignment="Center"
+                                                Margin="15,0">
+                                        <CheckBox IsChecked="{Binding Presente}"
+                                                  Content="Presente"
+                                                  FontWeight="SemiBold"/>
+                                    </StackPanel>
+
+                                    <!-- Observação -->
+                                    <TextBox Grid.Column="2" 
+                                             Text="{Binding Observacao}"
+                                             PlaceholderText="Observação (opcional)"
+                                             VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

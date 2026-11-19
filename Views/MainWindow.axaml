@@ -1,0 +1,127 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:FrequenciaEscolar.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
+        x:Class="FrequenciaEscolar.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Frequência Escolar"
+        Width="1100" Height="700"
+        WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <vm:MainViewModel/>
+    </Design.DataContext>
+
+    <DockPanel>
+        
+        <!-- Barra superior -->
+        <Border DockPanel.Dock="Top" Background="#1E293B" Padding="15">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="{Binding Titulo}" 
+                           FontSize="20" 
+                           FontWeight="Bold" 
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                
+                <TextBlock Grid.Column="1" 
+                           Text="{Binding StatusMensagem}" 
+                           Foreground="#94A3B8"
+                           VerticalAlignment="Center"
+                           Margin="20,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <!-- Menu lateral -->
+        <Border DockPanel.Dock="Left" 
+                Background="#0F172A" 
+                Width="220" 
+                Padding="10">
+            <StackPanel Spacing="8">
+                
+                <TextBlock Text="MENU" 
+                           Foreground="#64748B" 
+                           FontSize="12" 
+                           FontWeight="Bold"
+                           Margin="10,10,10,15"/>
+
+                <Button Content="Início" 
+                        Command="{Binding IrParaInicioCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="15,12"
+                        Background="Transparent"
+                        Foreground="White"/>
+
+                <Button Content="Turmas" 
+                        Command="{Binding IrParaTurmasCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="15,12"
+                        Background="Transparent"
+                        Foreground="White"/>
+
+                <Button Content="Alunos" 
+                        Command="{Binding IrParaAlunosCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="15,12"
+                        Background="Transparent"
+                        Foreground="White"/>
+
+                <Button Content="Lançar Frequência" 
+                        Command="{Binding IrParaFrequenciaCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="15,12"
+                        Background="Transparent"
+                        Foreground="White"/>
+
+                <Button Content="Relatório de Faltas" 
+                        Command="{Binding IrParaRelatorioCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="15,12"
+                        Background="Transparent"
+                        Foreground="White"/>
+
+                <Button Content="Info do App"
+        Command="{Binding IrParaSobreCommand}"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Left"
+        Padding="15,10"
+        Background="Transparent"
+        Foreground="#CBD5E1"
+        BorderThickness="0"
+        Cursor="Hand"/>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Área principal de conteúdo -->
+        <Border Background="#F1F5F9" Padding="10">
+            <Grid>
+                <!-- Tela inicial -->
+                <StackPanel VerticalAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            Spacing="15"
+                            IsVisible="{Binding ConteudoAtual, Converter={x:Static ObjectConverters.IsNull}}">
+                    <TextBlock Text="Bem-vindo ao Sistema de Frequência Escolar"
+                               FontSize="24"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Center"
+                               Foreground="#1E293B"/>
+                    <TextBlock Text="Selecione uma opção no menu ao lado para começar."
+                               FontSize="15"
+                               HorizontalAlignment="Center"
+                               Foreground="#64748B"/>
+                </StackPanel>
+
+                <!-- Conteúdo dinâmico -->
+                <ContentControl Content="{Binding ConteudoAtual}" />
+            </Grid>
+        </Border>
+
+    </DockPanel>
+</Window>
